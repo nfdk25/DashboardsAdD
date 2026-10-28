@@ -2,32 +2,85 @@
 <html lang="es">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Dashboards CargaVerde · Analítica de Datos UCU</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>CargaVerde · Dashboards</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;600;700&family=Barlow+Semi+Condensed:wght@600;700&display=swap">
 <style>
-:root{--bg:#F2F5F3;--fg:#14231C;--muted:#5B6B62;--panel:#fff;--line:#D9E2DC;--brand:#0E3B2E}
-@media (prefers-color-scheme:dark){:root{--bg:#0C1712;--fg:#E4EEE8;--muted:#9DB0A5;--panel:#13221B;--line:#26392F;--brand:#5FD3A0;color-scheme:dark}}
+:root{--bg:#F2F5F3;--fg:#14231C;--muted:#5B6B62;--panel:#FFFFFF;--line:#D9E2DC;--brand:#0E3B2E;--brand-2:#145A44;--ink:#EAF4EE;--spark:#F0E442;--focus:#0E3B2E;
+  --sans:"Barlow",system-ui,"Segoe UI",Arial,sans-serif;--display:"Barlow Semi Condensed","Barlow","Arial Narrow",Arial,sans-serif}
+@media (prefers-color-scheme:dark){:root{--bg:#0C1712;--fg:#E4EEE8;--muted:#9DB0A5;--panel:#13221B;--line:#26392F;--brand:#0A2C22;--brand-2:#0F4031;--focus:#5FD3A0;color-scheme:dark}}
 *{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--fg);font-family:system-ui,"Segoe UI",Arial,sans-serif;line-height:1.5}
-main{max-width:760px;margin:0 auto;padding:48px max(16px,env(safe-area-inset-left,0px))}
-p.k{font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin:0}
-h1{font-size:30px;margin:6px 0 8px}
-p{margin:0 0 24px;color:var(--muted)}
-.grid{display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr))}
-a.card{display:block;background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:20px;color:var(--fg);text-decoration:none}
-a.card:hover,a.card:focus-visible{border-color:var(--brand);outline:none}
-a.card b{display:block;font-size:18px;margin-bottom:4px}
-a.card span{font-size:14px;color:var(--muted)}
+html{background:var(--brand)}
+body{margin:0;min-height:100vh;background:linear-gradient(135deg,var(--brand) 0%,var(--brand-2) 100%) fixed;color:var(--ink);font-family:var(--sans);line-height:1.5;-webkit-font-smoothing:antialiased;display:flex;flex-direction:column}
+body::after{content:"";position:fixed;right:-120px;bottom:-120px;width:360px;height:360px;border-radius:50%;background:radial-gradient(circle,rgba(240,228,66,.18),rgba(240,228,66,0) 70%);pointer-events:none}
+.wrap{max-width:1000px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+header{color:var(--ink)}
+header .wrap{padding-block:40px 16px;display:grid;gap:20px}
+.top{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:16px}
+.logo{display:flex;align-items:center;gap:12px}
+.logo svg{width:48px;height:48px;flex:none}
+.name{font-family:var(--display);font-weight:700;font-size:30px;line-height:1}
+.name b{color:var(--spark);font-weight:700}
+.tag{font-size:13px;opacity:.85;margin-top:2px}
+.badge{font-size:12px;letter-spacing:.08em;text-transform:uppercase;border:1px solid rgba(234,244,238,.45);border-radius:999px;padding:4px 12px}
+h1{font-family:var(--display);font-weight:600;font-size:clamp(28px,5vw,40px);line-height:1.15;margin:0;text-wrap:balance}
+header p{margin:0;max-width:62ch;opacity:.9;font-size:16px}
+main{flex:1}
+main .wrap{padding-block:16px 48px;display:grid;gap:28px}
+.grid{display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr))}
+a.card{display:grid;gap:10px;background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:22px;color:var(--fg);text-decoration:none;transition:border-color .15s,transform .15s}
+a.card:hover{border-color:var(--spark);transform:translateY(-2px)}
+a.card:focus-visible{outline:2px solid var(--spark);outline-offset:3px}
+.kind{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+a.card b{font-family:var(--display);font-weight:600;font-size:22px;line-height:1.2}
+a.card span.d{font-size:14px;color:var(--muted)}
+.go{font-weight:600;font-size:14px}
+.qs{display:grid;gap:8px;border-top:1px solid rgba(234,244,238,.25);padding-top:20px}
+.qs h2{font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--spark);margin:0;font-weight:600}
+.qs ul{margin:0;padding-left:20px;display:grid;gap:4px}
+footer{font-size:13px;color:var(--ink);opacity:.75}
+@media (prefers-reduced-motion:reduce){a.card{transition:none}a.card:hover{transform:none}}
 </style>
 </head>
 <body>
+<header>
+  <div class="wrap">
+    <div class="top">
+      <div class="logo">
+        <svg viewBox="0 0 48 48" aria-hidden="true"><rect width="48" height="48" rx="12" fill="#EAF4EE"/><path d="M27 7 14 27h9l-3 14 14-21h-9l2-13z" fill="#0E3B2E"/><circle cx="36" cy="12" r="4" fill="#F0E442"/></svg>
+        <div><div class="name">Carga<b>Verde</b></div><div class="tag">Red de carga para vehículos eléctricos · Uruguay</div></div>
+      </div>
+      <span class="badge">Informe de uso · ene 2025 – sep 2026</span>
+    </div>
+    <h1>Dashboards de la red de carga</h1>
+    <p>Quién carga y cuánto carga en la red: dos versiones del mismo tablero, con los mismos datos y el mismo filtro por tipo de cargador.</p>
+  </div>
+</header>
 <main>
-  <p class="k">Universidad Católica del Uruguay · Analítica de Datos</p>
-  <h1>Dashboards CargaVerde</h1>
-  <p>Dos versiones del mismo tablero: cómo evolucionaron las cargas por tipo de usuario y cuánta energía se carga en una sesión típica.</p>
-  <div class="grid">
-    <a class="card" href="CargaVerde_dashboardmarca.html"><b>Versión con la marca CargaVerde</b><span>Encabezado con la identidad de la empresa.</span></a>
-    <a class="card" href="CargaVerde_dashboard.html"><b>Versión estilo tablero</b><span>Diseño sobrio, tarjetas y gráficos.</span></a>
+  <div class="wrap">
+    <div class="grid">
+      <a class="card" href="CargaVerde_dashboardmarca.html">
+        <span class="kind">Versión 1</span>
+        <b>Con la identidad de CargaVerde</b>
+        <span class="d">Encabezado de la marca, filtro integrado y gráficos con colores aptos para daltonismo.</span>
+        <span class="go">Abrir dashboard →</span>
+      </a>
+      <a class="card" href="CargaVerde_dashboard.html">
+        <span class="kind">Versión 2</span>
+        <b>Estilo tablero</b>
+        <span class="d">Diseño sobrio, con tarjetas blancas y títulos en serif.</span>
+        <span class="go">Abrir dashboard →</span>
+      </a>
+    </div>
+    <section class="qs">
+      <h2>Qué responden</h2>
+      <ul>
+        <li>¿Cómo evolucionaron las cargas mes a mes según el tipo de usuario?</li>
+        <li>¿Cuánta energía se carga en una sesión típica?</li>
+      </ul>
+    </section>
+    <footer>Universidad Católica del Uruguay · Analítica de Datos · Nestor Fabian Dominguez</footer>
   </div>
 </main>
 </body>
